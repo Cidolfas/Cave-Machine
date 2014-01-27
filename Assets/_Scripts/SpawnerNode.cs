@@ -8,9 +8,14 @@ public class SpawnerNode : Node {
 
 	public Node target;
 
-	public virtual void Start()
+	protected virtual void Start()
 	{
 		StartCoroutine (SpawnSequence());
+	}
+
+	public override void ReceivedMover (Mover m)
+	{
+		Destroy (m.gameObject);
 	}
 
 	public virtual void PickTarget()
@@ -20,7 +25,12 @@ public class SpawnerNode : Node {
 
 	public virtual void Spawn()
 	{
-		GameObject go = (GameObject)Instantiate (prefab, transform.position, transform.rotation);
+		Spawn (prefab);
+	}
+
+	public virtual void Spawn(GameObject pfb)
+	{
+		GameObject go = (GameObject)Instantiate (pfb, transform.position, transform.rotation);
 		Mover m = go.GetComponent<Mover> ();
 		m.Go (target);
 
@@ -34,8 +44,9 @@ public class SpawnerNode : Node {
 		}
 		for (;;) {
 			PickTarget ();
-			iTween.LookTo (gameObject, target.gameObject, rate);
+			iTween.LookTo (gameObject, target.transform.position, rate);
 			yield return new WaitForSeconds (rate);
+			Spawn();
 		}
 	}
 

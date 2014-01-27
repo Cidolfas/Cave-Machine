@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour {
 		nextNode = target;
 
 		transform.LookAt (target.transform.position);
-		rigidbody.velocity = Vector3.forward * speed;
+		rigidbody.velocity = transform.forward * speed;
 	}
 
 	void Update()

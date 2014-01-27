@@ -12,6 +12,7 @@ public class NodeManager : MonoBehaviour {
 
 	public GameObject spawnerPrefab;
 	public GameObject connectionPrefab;
+	public GameObject terminalPrefab;
 
 	void Awake()
 	{
@@ -33,14 +34,33 @@ public class NodeManager : MonoBehaviour {
 				HexClosePackCell newcell = new HexClosePackCell();
 				_hcpg.grid.Add(newspot, newcell);
 				connections.Add(new NodeConnection(_hcpg.grid[oldspot], newcell));
+				_hcpg.grid[oldspot].value += 1;
+				newcell.value += 1;
             }
         }
 
 		List<Vector3> cellPositions = _hcpg.CellPositions;
 		cellPositions.Sort (delegate(Vector3 x, Vector3 y) {
-			return -_hcpg.GetNeighborCount(x).CompareTo(_hcpg.GetNeighborCount(y));
+			return -_hcpg.grid[x].value.CompareTo(_hcpg.grid[y].value);
 			});
 
+		// Put the spawners in the most connected nodes
+		for (int i = 0; i < 3; i++) {
+			GameObject go = (GameObject)Instantiate(spawnerPrefab, _hcpg.GridToWorldPosition(cellPositions[i], 1f), Quaternion.identity);
+			_hcpg.grid[cellPositions[i]].content = go;
+			nodes.Add(go.GetComponent<Node>());
+		}
+
+		// For the rest, use normal nodes
+		for (int i = 3; i < cellPositions.Count; i++) {
+			GameObject pfb = connectionPrefab;
+			if (_hcpg.grid[cellPositions[i]].value == 1) {
+				pfb = terminalPrefab;
+			}
+			GameObject go = (GameObject)Instantiate(pfb, _hcpg.GridToWorldPosition(cellPositions[i], 1f), Quaternion.identity);
+			_hcpg.grid[cellPositions[i]].content = go;
+			nodes.Add(go.GetComponent<Node>());
+		}
 	}
 }
 

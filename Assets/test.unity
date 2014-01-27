@@ -240,6 +240,7 @@ GameObject:
   - 4: {fileID: 1617194161}
   - 114: {fileID: 1617194160}
   - 114: {fileID: 1617194162}
+  - 114: {fileID: 1617194163}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -258,11 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0686379192f02934abdbc043ca87ee3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 100000, guid: e6bcc74f09a222645b4c173e2d4b29fe, type: 2}
-  connectionPrefab: {fileID: 100000, guid: c1099eecb95a94a4b9f270972badf2de, type: 2}
   meshPrefab: {fileID: 100000, guid: 381d235d4ff8b8341b8b25060a86cdb3, type: 2}
   scalar: 40
-  connectionThickness: .100000001
   shakeAmount: .400000006
   innerThickness: 5
   outerThickness: 10
@@ -297,6 +295,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exit: 27
   toggleMouse: 96
+--- !u!114 &1617194163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1617194159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f18aa40a1d8765418458f974d1b9b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes: []
+  spawnerPrefab: {fileID: 100000, guid: b3de3db6823f55c4eafa9601fb9f9712, type: 2}
+  connectionPrefab: {fileID: 100000, guid: e6bcc74f09a222645b4c173e2d4b29fe, type: 2}
+  terminalPrefab: {fileID: 100000, guid: 0dbc5917c400cd2479678649f97169e4, type: 2}
 --- !u!1 &2130538537
 GameObject:
   m_ObjectHideFlags: 0
