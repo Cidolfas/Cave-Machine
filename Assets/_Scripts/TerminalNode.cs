@@ -13,12 +13,24 @@ public class TerminalNode : SpawnerNode {
 		Spawn (pingPrefab);
 	}
 
+	public override void SetupReceivers()
+	{
+		GameObject go = (GameObject)Instantiate (receiverPrefab);
+		go.transform.parent = transform;
+		Vector3 diff = neighbors [0].transform.position - transform.position;
+		diff.Normalize ();
+		diff *= arrivalRadius * 0.9f;
+		go.transform.localPosition = diff;
+		go.transform.LookAt (neighbors [0].transform);
+	}
+
 	public override IEnumerator SpawnSequence ()
 	{
 		while (neighbors.Count < 1) {
 			yield return null;
 		}
 		target = neighbors [0];
+		SetupReceivers ();
 		for (;;) {
 			rate = Random.Range(minTime, maxTime);
 			yield return new WaitForSeconds (rate);

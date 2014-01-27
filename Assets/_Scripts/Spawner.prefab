@@ -134,9 +134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbors: []
+  arrivalRadius: 2
   rate: .200000003
   prefab: {fileID: 100000, guid: 5d7e340a56ce4f941a088be46776f987, type: 2}
   target: {fileID: 0}
+  receiverPrefab: {fileID: 100000, guid: 29c8d5ba5b352ea47b36faa01c7b2b3e, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -11,13 +11,17 @@ public class Mover : MonoBehaviour {
 		previousNode = nextNode;
 		nextNode = target;
 
+		if (previousNode != null) {
+			transform.position = previousNode.transform.position;
+		}
+
 		transform.LookAt (target.transform.position);
 		rigidbody.velocity = transform.forward * speed;
 	}
 
 	void Update()
 	{
-		if (Vector3.Distance (transform.position, nextNode.transform.position) < 0.2f) {
+		if (Vector3.Distance (transform.position, nextNode.transform.position) < nextNode.arrivalRadius) {
 			nextNode.ReceivedMover(this);
 		}
 	}

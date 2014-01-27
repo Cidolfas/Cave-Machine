@@ -5,6 +5,8 @@ public class Node : MonoBehaviour {
 
 	public List<Node> neighbors = new List<Node>();
 
+	public float arrivalRadius = 0.1f;
+
 	public virtual void ReceivedMover(Mover m)
 	{
 		if (neighbors.Count <= 1) {

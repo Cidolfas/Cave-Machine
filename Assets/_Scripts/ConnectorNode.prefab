@@ -13,6 +13,7 @@ GameObject:
   - 108: {fileID: 10800000}
   - 135: {fileID: 13500000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: ConnectorNode
   m_TagString: Untagged
@@ -106,6 +107,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbors: []
+  arrivalRadius: .5
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4687372fa12c944488518a4acb61f4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lowColor: {r: .635294139, g: .937254906, b: .996078432, a: 1}
+  highColor: {r: .958214998, g: .992156863, b: .631372571, a: 1}
+  lowIntensity: 1
+  highIntensity: 3
+  lowScale: 1
+  highScale: 1.5
+  decay: .5
+  current: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
