@@ -11,6 +11,14 @@ public class HexClosePackGrid {
 	public Dictionary<Vector3, HexClosePackCell> grid = new Dictionary<Vector3, HexClosePackCell>();
 	
 	private List<int> _neighborDirections = new List<int>(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
+
+	public List<HexClosePackCell> Cells {
+		get { return new List<HexClosePackCell> (grid.Values); }
+	}
+
+	public List<Vector3> CellPositions {
+		get { return new List<Vector3> (grid.Keys); }
+	}
 	
 	public bool WalkToEmptyNeighbor(Vector3 start, out Vector3 end)
 	{

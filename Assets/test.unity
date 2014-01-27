@@ -262,7 +262,7 @@ MonoBehaviour:
   connectionPrefab: {fileID: 100000, guid: c1099eecb95a94a4b9f270972badf2de, type: 2}
   meshPrefab: {fileID: 100000, guid: 381d235d4ff8b8341b8b25060a86cdb3, type: 2}
   scalar: 40
-  connectionThickness: .25
+  connectionThickness: .100000001
   shakeAmount: .400000006
   innerThickness: 5
   outerThickness: 10

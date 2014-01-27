@@ -14,8 +14,7 @@ public class TESTspitGrid : MonoBehaviour {
 	public float outerThickness = 10f;
 	public float noiseAmount = 0f;
 	public float marchingCubesThreshold = 0.5f;
-
-	HexClosePackGrid _hcpg = new HexClosePackGrid();
+	
 	public int voxelCountPerChunk = 16;
 	public int chunkStride = 2;
 	public float voxelResolution = 2f; // units per point
@@ -29,23 +28,10 @@ public class TESTspitGrid : MonoBehaviour {
 		int v = voxelCountPerChunk * chunkStride;
 		voxels = new float[v, v, v];
 
-		HexClosePackCell zerocell = new HexClosePackCell ();
-		zerocell.content = (GameObject)Instantiate (nodePrefab, Vector3.zero, Quaternion.identity);
-		_hcpg.grid.Add (new Vector3 (0, 0, 0), zerocell);
+		NodeManager nm = NodeManager.Instance;
+		nm.BuildNetwork (40);
+		foreach (Node n in nm.nodes) {
 
-		Vector3 newspot = Vector3.zero;
-		List<Vector3> keylist;
-		for (int i = 40; i > 0;) {
-			keylist = new List<Vector3>(_hcpg.grid.Keys);
-			Vector3 oldspot = keylist[Random.Range(0, keylist.Count)];
-			if (_hcpg.WalkToEmptyNeighbor(oldspot, out newspot)) {
-				i--;
-				HexClosePackCell newcell = new HexClosePackCell();
-				Vector3 shake = Random.insideUnitSphere * shakeAmount * scalar;
-				newcell.content = (GameObject)Instantiate(nodePrefab, newspot * scalar + shake, Quaternion.identity);
-				_hcpg.grid.Add(newspot, newcell);
-				BuildConnection(_hcpg.grid[oldspot].content.transform.position, newcell.content.transform.position);
-			}
 		}
 
 //		BuildConnection (Vector3.one * 20f, Vector3.one * -20f);
@@ -65,21 +51,20 @@ public class TESTspitGrid : MonoBehaviour {
 
 		GameObject go = (GameObject)Instantiate (connectionPrefab, midpoint, look);
 		Mesh msh = new Mesh ();
-		Vector3 p0 = Vector3.zero;
 		Vector3 p1 = new Vector3 (connectionThickness, 0f, dist);
 		Vector3 p2 = new Vector3 (0f, connectionThickness, dist);
 		Vector3 p3 = new Vector3 (-connectionThickness, 0f, dist);
 		Vector3 p4 = new Vector3 (0f, -connectionThickness, dist);
-		Vector3[] verts = new Vector3[]{p0, p4, p3, p2, p1, -p4, -p3, -p2, -p1};
-		int[] tris = new int[]{0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1, 0, 6, 5, 0, 7, 6, 0, 8, 7, 0, 5, 8};
-		Vector2 v = Vector2.zero;
-		Vector2[] uvs = new Vector2[] {v, v, v, v, v, v, v, v, v};
+		Vector3[] verts = new Vector3[]{p1, p2, p3, p4, -p3, -p4, -p1, -p2};
+		int[] tris = new int[]{0, 4, 5, 0, 5, 1, 1, 5, 6, 1, 6, 2, 2, 6, 7, 2, 7, 3, 3, 7, 4, 3, 4, 0};
+		Vector2[] uvs = new Vector2[verts.Length];
 		msh.vertices = verts;
 		msh.triangles = tris;
 		msh.uv = uvs;
 		msh.RecalculateNormals();
 		msh.RecalculateBounds();
 		go.GetComponent<MeshFilter> ().mesh = msh;
+		go.GetComponent<BoxCollider> ().size = new Vector3 (connectionThickness * 2f, connectionThickness * 2f, dist * 2f);
 
 		RasterizeLine (start, end, innerThickness, outerThickness);
 	}
