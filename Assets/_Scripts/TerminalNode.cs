@@ -24,6 +24,11 @@ public class TerminalNode : SpawnerNode {
 		go.transform.LookAt (neighbors [0].transform);
 	}
 
+	public void SetupCrystals()
+	{
+
+	}
+
 	public override IEnumerator SpawnSequence ()
 	{
 		while (neighbors.Count < 1) {

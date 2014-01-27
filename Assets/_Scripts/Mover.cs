@@ -24,6 +24,8 @@ public class Mover : MonoBehaviour {
 		if (Vector3.Distance (transform.position, nextNode.transform.position) < nextNode.arrivalRadius) {
 			nextNode.ReceivedMover(this);
 		}
+
+		transform.RotateAround (transform.position, transform.forward, Time.deltaTime * speed * 40f);
 	}
 
 }

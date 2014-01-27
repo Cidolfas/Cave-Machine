@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4687372fa12c944488518a4acb61f4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowColor: {r: .635294139, g: .937254906, b: .996078432, a: 1}
+  lowColor: {r: .635294139, g: .937254906, b: .996078432, a: .0705882385}
   highColor: {r: .958214998, g: .992156863, b: .631372571, a: 1}
   lowIntensity: 1
   highIntensity: 3

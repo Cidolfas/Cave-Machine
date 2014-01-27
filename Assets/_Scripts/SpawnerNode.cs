@@ -10,6 +10,8 @@ public class SpawnerNode : Node {
 
 	public GameObject receiverPrefab;
 
+	public GameObject mesh;
+
 	protected virtual void Start()
 	{
 		StartCoroutine (SpawnSequence());
@@ -58,9 +60,10 @@ public class SpawnerNode : Node {
 		while (neighbors.Count < 1) {
 			yield return null;
 		}
+		SetupReceivers ();
 		for (;;) {
 			PickTarget ();
-			iTween.LookTo (gameObject, target.transform.position, rate);
+			iTween.LookTo (mesh, target.transform.position, rate);
 			yield return new WaitForSeconds (rate);
 			Spawn();
 		}
