@@ -4,17 +4,25 @@ using System.Collections.Generic;
 
 public class TerminalNode : SpawnerNode {
 
-	public GameObject pingPrefab;
+	public Mover pingPrefab;
 	public GameObject[] crystalPrefabs;
 	public float minTime = 8f;
 	public float maxTime = 25f;
 
 	public List<GameObject> crystals = new List<GameObject>();
 
+	protected override void Start ()
+	{
+		ObjectPool.CreatePool (pingPrefab);
+		base.Start ();
+	}
+
 	public override void ReceivedMover (Mover m)
 	{
-		Destroy (m.gameObject);
-		Spawn (pingPrefab);
+		base.ReceivedMover (m);
+		if (Random.value > 0.5f) {
+			Spawn (pingPrefab);
+		}
 	}
 
 	public override void SetupReceivers()
@@ -64,8 +72,10 @@ public class TerminalNode : SpawnerNode {
 		SetupCrystals();
 		yield return null;
 		for (;;) {
-			int c = Random.Range(0, crystals.Count);
-			iTween.LookTo(mesh, crystals[c].transform.position, 1f);
+			if (crystals.Count > 0) {
+				int c = Random.Range(0, crystals.Count);
+				iTween.LookTo(mesh, crystals[c].transform.position, 1f);
+			}
 			rate = Random.Range(minTime, maxTime);
 			yield return new WaitForSeconds (rate);
 			Spawn();

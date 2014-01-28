@@ -36,6 +36,7 @@ public class ConnectorGrow : MonoBehaviour {
 		transform.localScale = Vector3.one * Mathf.Lerp (lowScale, highScale, current);
 
 		current = Mathf.Clamp01 (current - Time.deltaTime * decay);
+		current = Mathf.Max (current, (Mathf.Sin (Time.time / 2f) + 1f) * 0.1f);
 	}
 
 }

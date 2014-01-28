@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class TESTspitGrid : MonoBehaviour {
@@ -25,26 +26,33 @@ public class TESTspitGrid : MonoBehaviour {
 		int v = voxelCountPerChunk * chunkStride;
 		voxels = new float[v, v, v];
 
+		StartCoroutine (Startup ());
+	}
+
+	IEnumerator Startup()
+	{
 		NodeManager nm = NodeManager.Instance;
 		nm.BuildNetwork (40);
 		foreach (Node n in nm.nodes) {
 			Vector3 offset = Random.insideUnitSphere * scalar * shakeAmount;
 			n.transform.position = n.transform.position * scalar + offset;
 		}
-
+		
 		foreach (NodeConnection nc in nm.connections) {
 			Node p = nc.primary.content.GetComponent<Node>();
 			Node s = nc.secondary.content.GetComponent<Node>();
-
+			
 			p.neighbors.Add(s);
 			s.neighbors.Add(p);
-
+			
 			BuildConnection(p.transform.position, s.transform.position);
 		}
-
+		
 		AddNoiseToVoxels ();
 		SealEdges ();
 		MarchingCubesGo ();
+		yield return null;
+		nm.AddPorts ();
 	}
 
 	void BuildConnection(Vector3 start, Vector3 end)

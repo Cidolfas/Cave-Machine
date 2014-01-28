@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnerNode : Node {
 
 	public float rate = 1f;
-	public GameObject prefab;
+	public Mover moverPrefab;
 
 	public Node target;
 
@@ -14,12 +14,14 @@ public class SpawnerNode : Node {
 
 	protected virtual void Start()
 	{
+		ObjectPool.CreatePool (moverPrefab);
 		StartCoroutine (SpawnSequence());
 	}
 
 	public override void ReceivedMover (Mover m)
 	{
-		Destroy (m.gameObject);
+		m.Splatter ();
+		m.Recycle ();
 	}
 
 	public virtual void PickTarget()
@@ -29,17 +31,16 @@ public class SpawnerNode : Node {
 
 	public virtual void Spawn()
 	{
-		Spawn (prefab);
+		Spawn (moverPrefab);
 	}
 
-	public virtual void Spawn(GameObject pfb)
+	public virtual void Spawn(Mover pfb)
 	{
-		GameObject go = (GameObject)Instantiate (pfb, transform.position, transform.rotation);
-		Mover m = go.GetComponent<Mover> ();
+		Mover m = pfb.Spawn(transform.position, transform.rotation);
 		m.nextNode = this;
 		m.Go (target);
 
-		SendMessage ("OnSpawn", SendMessageOptions.DontRequireReceiver);
+		BroadcastMessage ("OnSpawn", SendMessageOptions.DontRequireReceiver);
 	}
 
 	public virtual void SetupReceivers()

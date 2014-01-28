@@ -13,6 +13,7 @@ public class NodeManager : MonoBehaviour {
 	public GameObject spawnerPrefab;
 	public GameObject connectionPrefab;
 	public GameObject terminalPrefab;
+	public GameObject portPrefab;
 
 	void Awake()
 	{
@@ -61,6 +62,29 @@ public class NodeManager : MonoBehaviour {
 			_hcpg.grid[cellPositions[i]].content = go;
 			nodes.Add(go.GetComponent<Node>());
 		}
+	}
+
+	public void AddPorts()
+	{
+		RaycastHit hit;
+		for (int i = 0; i < connections.Count; i++) {
+			NodeConnection nc = connections[i];
+			Transform p = nc.primary.content.transform;
+			Transform s = nc.secondary.content.transform;
+			Vector3 diff = s.position - p.position;
+			float dist = diff.magnitude;
+			int mask = 1 << LayerMask.NameToLayer("Walls");
+			if (Physics.Raycast(p.position, diff, out hit, dist, mask)) {
+				AddPort(hit);
+			} else if (Physics.Raycast(s.position, -diff, out hit, dist, mask)) {
+				AddPort(hit);
+			}
+		}
+	}
+
+	public void AddPort(RaycastHit hit)
+	{
+		Instantiate (portPrefab, hit.point, Quaternion.LookRotation (hit.normal));
 	}
 }
 

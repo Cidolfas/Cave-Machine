@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Crystals
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 8c457f6a6aa89104c8720f48542f25f4, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -20,9 +20,36 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+      data:
+        first:
+          name: _Illum
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Shininess
+        second: .319140941
+      data:
+        first:
+          name: _Illum
+        second: 1
+      data:
+        first:
+          name: _EmissionLM
+        second: 0
+      data:
+        first:
+          name: _Gloss
+        second: 1
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .699999988, g: .247999996, b: 1, a: 1}
+        second: {r: .659457147, g: .156862736, b: 1, a: .0392156877}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .731019258, g: .749019623, b: .490534425, a: 0}
