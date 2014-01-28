@@ -171,9 +171,14 @@ MonoBehaviour:
   prefab: {fileID: 100000, guid: a8c579b1c537f644395c29a5fad25d44, type: 2}
   target: {fileID: 0}
   receiverPrefab: {fileID: 100000, guid: 58b9bba4715e57148a3fa682b5e32bac, type: 2}
+  mesh: {fileID: 100002}
   pingPrefab: {fileID: 100000, guid: 90fdae180ef69bd44a2254f2cea55040, type: 2}
+  crystalPrefabs:
+  - {fileID: 100000, guid: 67c6ed4468354d3488d3f1d35d5c4309, type: 2}
+  - {fileID: 100000, guid: 7747e3e27a161ba47be74555eaf3085f, type: 2}
   minTime: 8
   maxTime: 25
+  crystals: []
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
