@@ -3,7 +3,14 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	public static Player Instance;
+
 	float speed = 10f;
+
+	void Awake()
+	{
+		Instance = this;
+	}
 
 	void Start()
 	{

@@ -11,6 +11,8 @@ public class TerminalNode : SpawnerNode {
 
 	public List<GameObject> crystals = new List<GameObject>();
 
+	public ParticleSystem absorbPS;
+
 	protected override void Start ()
 	{
 		ObjectPool.CreatePool (pingPrefab);
@@ -74,10 +76,35 @@ public class TerminalNode : SpawnerNode {
 		for (;;) {
 			if (crystals.Count > 0) {
 				int c = Random.Range(0, crystals.Count);
-				iTween.LookTo(mesh, crystals[c].transform.position, 1f);
+				iTween.LookTo(mesh, crystals[c].transform.position, 3f);
+				iTween.LookTo(mesh, iTween.Hash("looktarget", crystals[c].transform.position, "time", 3f, "easetype", iTween.EaseType.linear));
+				absorbPS.transform.position = crystals[c].transform.position;
+				absorbPS.transform.LookAt(transform.position);
+				float dist = Vector3.Distance(crystals[c].transform.position, transform.position);
+				absorbPS.startLifetime = (dist-0.5f) / absorbPS.startSpeed;
 			}
-			rate = Random.Range(minTime, maxTime);
-			yield return new WaitForSeconds (rate);
+			yield return new WaitForSeconds (3f);
+			rate = Random.Range(minTime * 2f, maxTime * 2f);
+			rate = Mathf.Ceil(rate) / 2f;
+			light.intensity = 3f;
+			GetComponent<SoundEntity>().mode = 1;
+			if (crystals.Count > 0) {
+				absorbPS.Play();
+			}
+			float t = Time.time;
+			while(Time.time < t + rate) {
+				float tsq = (Time.time - t) * 10f;
+				light.intensity = 4f + Mathf.Sin(tsq) * 0.5f;
+				yield return null;
+			}
+			light.intensity = 1f;
+			absorbPS.Stop();
+			rate = Mathf.Ceil(absorbPS.startLifetime * 2f) / 2f;
+			yield return new WaitForSeconds (absorbPS.startLifetime);
+			GetComponent<SoundEntity>().mode = 0;
+			yield return new WaitForSeconds(rate - absorbPS.startLifetime);
+			iTween.LookTo(mesh, iTween.Hash("looktarget", target.transform.position, "time", 3f, "easetype", iTween.EaseType.linear));
+			yield return new WaitForSeconds (3f);
 			Spawn();
 		}
 	}

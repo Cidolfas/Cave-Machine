@@ -14,11 +14,13 @@ public class ConnectorGrow : MonoBehaviour {
 
 	private Light l;
 	private Material m;
+	private SoundEntity e;
 
 	void Start()
 	{
 		l = light;
 		m = renderer.material;
+		e = GetComponent<SoundEntity> ();
 	}
 
 	void OnReceived()
@@ -34,6 +36,8 @@ public class ConnectorGrow : MonoBehaviour {
 		l.intensity = Mathf.Lerp (lowIntensity, highIntensity, current);
 		m.color = c;
 		transform.localScale = Vector3.one * Mathf.Lerp (lowScale, highScale, current);
+
+		e.strength = current;
 
 		current = Mathf.Clamp01 (current - Time.deltaTime * decay);
 		current = Mathf.Max (current, (Mathf.Sin (Time.time / 2f) + 1f) * 0.1f);
