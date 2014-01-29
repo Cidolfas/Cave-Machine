@@ -47,6 +47,10 @@ public class TESTspitGrid : MonoBehaviour {
 			
 			BuildConnection(p.transform.position, s.transform.position);
 		}
+
+		int c = Random.Range (0, nm.connections.Count);
+		NodeConnection ncn = nm.connections[c];
+		Player.Instance.transform.position = (ncn.primary.content.transform.position + ncn.secondary.content.transform.position) / 2f;
 		
 		AddNoiseToVoxels ();
 		SealEdges ();

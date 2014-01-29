@@ -105,7 +105,11 @@ public class TerminalNode : SpawnerNode {
 			yield return new WaitForSeconds(rate - absorbPS.startLifetime);
 			iTween.LookTo(mesh, iTween.Hash("looktarget", target.transform.position, "time", 3f, "easetype", iTween.EaseType.linear));
 			yield return new WaitForSeconds (3f);
-			Spawn();
+			int n = Random.Range(1, 5);
+			for (int i = 0; i < n; i++) {
+				Spawn();
+				yield return new WaitForSeconds (0.5f);
+			}
 		}
 	}
 

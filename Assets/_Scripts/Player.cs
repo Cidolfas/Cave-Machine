@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	public static Player Instance;
 
 	float speed = 10f;
+	public GameObject instructions;
 
 	void Awake()
 	{
@@ -15,6 +16,13 @@ public class Player : MonoBehaviour {
 	void Start()
 	{
 		Screen.lockCursor = true;
+	}
+
+	void Update()
+	{
+		if (Input.anyKey) {
+			instructions.SetActive(false);
+		}
 	}
 
 	void FixedUpdate()
