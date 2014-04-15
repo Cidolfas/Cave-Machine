@@ -53,10 +53,7 @@ public class HexClosePackGrid {
 			if (s < min || s > max) {
 				continue;
 			}
-			//Debug.Log("v: " + v.ToString());
-			//Debug.Log("s: " + s.ToString());
 			s = Mathf.Abs(s-target);
-			//Debug.Log("score: " + s.ToString());
 			if (!scores.ContainsKey(s)) {
 				scores.Add(s, new List<Vector3>());
 			}

@@ -61,29 +61,6 @@ public class TESTspitGrid : MonoBehaviour {
 
 	void BuildConnection(Vector3 start, Vector3 end)
 	{
-//		Vector3 midpoint = (start + end) / 2f;
-//		Vector3 diff = midpoint - start;
-//		float dist = diff.magnitude;
-//
-//		Quaternion look = Quaternion.LookRotation (diff);
-//
-//		GameObject go = (GameObject)Instantiate (connectionPrefab, midpoint, look);
-//		Mesh msh = new Mesh ();
-//		Vector3 p1 = new Vector3 (connectionThickness, 0f, dist);
-//		Vector3 p2 = new Vector3 (0f, connectionThickness, dist);
-//		Vector3 p3 = new Vector3 (-connectionThickness, 0f, dist);
-//		Vector3 p4 = new Vector3 (0f, -connectionThickness, dist);
-//		Vector3[] verts = new Vector3[]{p1, p2, p3, p4, -p3, -p4, -p1, -p2};
-//		int[] tris = new int[]{0, 4, 5, 0, 5, 1, 1, 5, 6, 1, 6, 2, 2, 6, 7, 2, 7, 3, 3, 7, 4, 3, 4, 0};
-//		Vector2[] uvs = new Vector2[verts.Length];
-//		msh.vertices = verts;
-//		msh.triangles = tris;
-//		msh.uv = uvs;
-//		msh.RecalculateNormals();
-//		msh.RecalculateBounds();
-//		go.GetComponent<MeshFilter> ().mesh = msh;
-//		go.GetComponent<BoxCollider> ().size = new Vector3 (connectionThickness * 2f, connectionThickness * 2f, dist * 2f);
-
 		RasterizeLine (start, end, innerThickness, outerThickness);
 	}
 
